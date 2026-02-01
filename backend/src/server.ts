@@ -1,4 +1,5 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+/// <reference path="./types/express.d.ts" />
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -44,7 +45,7 @@ app.use(morgan('combined', {
 }));
 
 // Health check endpoint
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
@@ -55,7 +56,7 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
 // 404 Handler
-app.use((req: Request, res: Response) => {
+app.use((_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     message: 'Resource not found'

@@ -98,7 +98,7 @@ export const getTasks = async (
 };
 
 export const getTask = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -256,7 +256,7 @@ export const createTask = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -265,7 +265,7 @@ export const createTask = async (
 };
 
 export const updateTask = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -329,7 +329,7 @@ export const updateTask = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -338,7 +338,7 @@ export const updateTask = async (
 };
 
 export const updateTaskStatus = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -401,7 +401,7 @@ export const updateTaskStatus = async (
 };
 
 export const deleteTask = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -444,7 +444,7 @@ export const deleteTask = async (
 };
 
 export const addComment = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {

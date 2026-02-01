@@ -8,15 +8,6 @@ interface JwtPayload {
   userId: string;
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      userId?: string;
-      user?: any;
-    }
-  }
-}
-
 export const authenticate = async (
   req: Request,
   res: Response,

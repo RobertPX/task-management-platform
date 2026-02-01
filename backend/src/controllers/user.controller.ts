@@ -67,7 +67,7 @@ export const getUsers = async (
 };
 
 export const getUser = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -145,7 +145,7 @@ export const updateUser = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -207,7 +207,7 @@ export const changePassword = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }

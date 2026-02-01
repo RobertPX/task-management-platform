@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 
@@ -21,11 +21,9 @@ const loginSchema = z.object({
 
 // Generate JWT token
 const generateToken = (userId: string): string => {
-  return jwt.sign(
-    { userId },
-    process.env.JWT_SECRET || 'your-secret-key',
-    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-  );
+  const secret = process.env.JWT_SECRET || 'your-secret-key';
+  const expiresIn = (process.env.JWT_EXPIRES_IN || '7d') as SignOptions['expiresIn'];
+  return jwt.sign({ userId }, secret, { expiresIn });
 };
 
 export const register = async (
@@ -86,7 +84,7 @@ export const register = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -160,7 +158,7 @@ export const login = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }

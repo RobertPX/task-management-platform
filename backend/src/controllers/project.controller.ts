@@ -91,7 +91,7 @@ export const getProjects = async (
 };
 
 export const getProject = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -202,7 +202,7 @@ export const createProject = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -211,7 +211,7 @@ export const createProject = async (
 };
 
 export const updateProject = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -276,7 +276,7 @@ export const updateProject = async (
       res.status(400).json({
         success: false,
         message: 'Validation error',
-        errors: error.errors
+        errors: error.issues
       });
       return;
     }
@@ -285,7 +285,7 @@ export const updateProject = async (
 };
 
 export const deleteProject = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -323,7 +323,7 @@ export const deleteProject = async (
 };
 
 export const addMember = async (
-  req: Request,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -395,7 +395,7 @@ export const addMember = async (
 };
 
 export const removeMember = async (
-  req: Request,
+  req: Request<{ id: string; memberId: string }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
